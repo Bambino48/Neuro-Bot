@@ -29,27 +29,56 @@ const neuroscienceTerms = [
     "dendrite",
 ];
 
+// Liste des maladies des nerfs
+const nerveDiseases = [
+    "sclérose en plaques",
+    "maladie de Parkinson",
+    "épilepsie",
+    "neuropathie",
+    "myasthénie",
+    "sclérose latérale amyotrophique",
+];
+
+// Liste des salutations
+const greetings = ["bonjour", "salut", "hello", "hi", "bonsoir"];
+
 // Fonction pour vérifier si le texte contient des termes de neurosciences
 const containsNeuroscienceTerms = (text) => {
     return neuroscienceTerms.some((term) => text.toLowerCase().includes(term));
+};
+
+// Fonction pour vérifier si le texte contient des maladies des nerfs
+const containsNerveDiseases = (text) => {
+    return nerveDiseases.some((disease) => text.toLowerCase().includes(disease));
+};
+
+// Fonction pour vérifier si le texte contient des salutations
+const containsGreeting = (text) => {
+    return greetings.some((greeting) => text.toLowerCase().includes(greeting));
 };
 
 // Fonction pour générer la réponse du bot en utilisant l'API
 const generateBotResponse = async (incomingMessageDiv) => {
     const messageElement = incomingMessageDiv.querySelector(".message-text");
 
+    // Vérifie si le message de l'utilisateur contient une salutation
+    if (containsGreeting(userData.message)) {
+        messageElement.innerText =
+            "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
+        incomingMessageDiv.classList.remove("thinking");
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+        return;
+    }
+
     // Options de la requête API
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            contents: [
-                {
-                    parts: [{ text: userData.message }],
-                },
-            ],
+            contents: [{ parts: [{ text: userData.message }] }],
         }),
     };
+
     try {
         const response = await fetch(API_URL, requestOptions);
         const data = await response.json();
@@ -60,10 +89,13 @@ const generateBotResponse = async (incomingMessageDiv) => {
             .replace(/\*\*(.*?)\*\*/g, "$1") // Supprime les éventuels caractères gras
             .trim();
 
-        // Vérifie si la réponse contient des termes de neurosciences
-        if (!containsNeuroscienceTerms(apiResponseText)) {
+        // Vérifie si la réponse contient des termes de neurosciences ou des maladies des nerfs
+        if (
+            !containsNeuroscienceTerms(apiResponseText) &&
+            !containsNerveDiseases(apiResponseText)
+        ) {
             apiResponseText =
-                "Je suis désolé, je ne peux répondre qu'aux questions liées aux neurosciences.";
+                "Je suis désolé, je ne peux répondre qu'aux questions liées aux neurosciences et aux maladies des nerfs.";
         }
 
         messageElement.innerText = apiResponseText;
@@ -76,9 +108,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
 };
 
 // Objet pour stocker les données de l'utilisateur
-const userData = {
-    message: null,
-};
+const userData = { message: null };
 
 // Fonction pour gérer l'envoi des messages de l'utilisateur
 const handleOutgoingMessage = (e) => {
@@ -99,9 +129,7 @@ const handleOutgoingMessage = (e) => {
 
     // Simuler la réponse du bot avec un indicateur de réflexion après un délai
     setTimeout(() => {
-        const messageContent = `<span class="material-symbols-outlined">
-                smart_toy
-                </span>
+        const messageContent = `<span class="material-symbols-outlined">smart_toy</span>
             <div class="message-text">
                 <div class="thinking-indicator">
                     <div class="dot"></div>
