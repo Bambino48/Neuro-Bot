@@ -4,7 +4,7 @@ const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
 
 // Configuration de l'API
-const API_KEY = "Votre_API_KEY_ici"; // Remplacez par votre clé API
+const API_KEY = "AIzaSyDJl0YG4YQmdYd3ZOj749jYgX_nCDn8tKQ"; // Remplacez par votre clé API
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 // Fonction pour créer un élément de message avec des classes dynamiques et le retourner
