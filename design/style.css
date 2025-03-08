@@ -1,0 +1,355 @@
+/* Importation de la police depuis Google Fonts : Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Réinitialisation des marges, des paddings et du box-sizing pour tous les éléments */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    /* Utilisation de la police Inter */
+}
+
+/* Style du corps de la page */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* Hauteur minimale de la page */
+    background: #f5f0d7;
+    /* Couleur de fond */
+}
+
+/* Style du conteneur principal */
+.container {
+    position: relative;
+    width: 420px;
+    /* Largeur fixe du conteneur */
+    background: #fff;
+    /* Couleur de fond blanche */
+    overflow: hidden;
+    /* Cache le contenu débordant */
+    border-radius: 15px;
+    /* Bords arrondis */
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+        0 32px 64px -48px rgba(0, 0, 0, 0.1);
+    /* Ombre portée */
+}
+
+/* Style de l'en-tête du chatbot */
+.chatbot-header {
+    display: flex;
+    align-items: center;
+    background: #faca15;
+    /* Couleur de fond jaune */
+    padding: 15px 22px;
+    /* Espacement interne */
+    justify-content: space-between;
+    /* Espacement entre les éléments */
+}
+
+/* Style du conteneur de l'en-tête du bot */
+.chatbot-header .header-bot {
+    display: flex;
+    gap: 10px;
+    /* Espacement entre les éléments */
+    align-items: center;
+    /* Alignement vertical des éléments */
+}
+
+/* Style de l'icône du cerveau */
+.header-bot .bx-brain {
+    font-size: 30px;
+    /* Taille de la police */
+    padding: 6px;
+    /* Espacement interne */
+    color: #faca15;
+    /* Couleur jaune */
+    flex-shrink: 0;
+    /* Empêche la réduction de la taille */
+    background: #fff;
+    /* Fond blanc */
+    border-radius: 50%;
+    /* Forme circulaire */
+}
+
+/* Style du texte du logo */
+.header-bot .logo-text {
+    color: #fff;
+    /* Couleur blanche */
+    font-size: 2rem;
+    /* Taille de la police */
+    font-weight: 900;
+    /* Poids de la police */
+}
+
+/* Style du corps du chatbot */
+.chatbot-body {
+    padding: 25px 22px;
+    /* Espacement interne */
+    display: flex;
+    gap: 20px;
+    /* Espacement entre les éléments */
+    height: 460px;
+    /* Hauteur fixe */
+    margin-bottom: 82px;
+    /* Marge inférieure */
+    overflow-y: auto;
+    /* Défilement vertical */
+    flex-direction: column;
+    /* Disposition en colonne */
+    scrollbar-width: thin;
+    /* Largeur de la barre de défilement */
+    scrollbar-color: #f5f0d7 transparent;
+    /* Couleur de la barre de défilement */
+}
+
+/* Style des messages dans le corps du chatbot */
+.chatbot-body .message {
+    display: flex;
+    gap: 11px;
+    /* Espacement entre les éléments */
+    align-items: center;
+    /* Alignement vertical des éléments */
+}
+
+/* Style des icônes dans les messages */
+.chatbot-body .message span {
+    font-size: 30px;
+    /* Taille de la police */
+    padding: 6px;
+    /* Espacement interne */
+    color: #fff;
+    /* Couleur blanche */
+    flex-shrink: 0;
+    /* Empêche la réduction de la taille */
+    align-self: flex-end;
+    /* Alignement à la fin */
+    margin-bottom: 2px;
+    /* Marge inférieure */
+    background: #faca15;
+    /* Fond jaune */
+    border-radius: 50%;
+    /* Forme circulaire */
+}
+
+/* Style des messages de l'utilisateur */
+.chatbot-body .user-message {
+    flex-direction: column;
+    /* Disposition en colonne */
+    align-items: flex-end;
+    /* Alignement à droite */
+}
+
+/* Style du texte des messages */
+.chatbot-body .message .message-text {
+    padding: 0 16px;
+    /* Espacement interne */
+    max-width: 75%;
+    /* Largeur maximale */
+    font-size: 1rem;
+    /* Taille de la police */
+    background: #f5f0d7;
+    /* Fond beige */
+}
+
+/* Style des messages du bot en réflexion */
+.chatbot-body .bot-message.thinking .message-text {
+    padding: 2px 16px;
+    /* Espacement interne */
+}
+
+/* Style des messages du bot */
+.chatbot-body .bot-message .message-text {
+    background: #f5f0d7;
+    /* Fond beige */
+    padding: 12px;
+    /* Espacement interne */
+    border-radius: 13px 13px 13px 3px;
+    /* Bords arrondis */
+}
+
+/* Style des messages de l'utilisateur */
+.chatbot-body .user-message .message-text {
+    color: #fff;
+    /* Couleur blanche */
+    background: #ebbd04;
+    /* Fond jaune foncé */
+    padding: 12px;
+    /* Espacement interne */
+    border-radius: 13px 13px 3px 13px;
+    /* Bords arrondis */
+}
+
+/* Style de l'indicateur de réflexion du bot */
+.chatbot-body .bot-message .thinking-indicator {
+    display: flex;
+    gap: 4px;
+    /* Espacement entre les éléments */
+    padding-block: 6px;
+    /* Espacement vertical */
+}
+
+/* Style des points de l'indicateur de réflexion */
+.chatbot-body .bot-message .thinking-indicator .dot {
+    height: 7px;
+    /* Hauteur des points */
+    width: 7px;
+    /* Largeur des points */
+    opacity: 0.7;
+    /* Opacité */
+    background: #faca15;
+    /* Fond jaune */
+    border-radius: 50%;
+    /* Forme circulaire */
+    animation: dotPulse 1.8s ease-in-out infinite;
+    /* Animation de pulsation */
+}
+
+/* Délai d'animation pour les points */
+.chatbot-body .bot-message .thinking-indicator .dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.chatbot-body .bot-message .thinking-indicator .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.chatbot-body .bot-message .thinking-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Animation de pulsation des points */
+@keyframes dotPulse {
+
+    0%,
+    44% {
+        transform: translateY(0);
+    }
+
+    28% {
+        opacity: 0.4;
+        transform: translateY(-4px);
+    }
+
+    44% {
+        opacity: 0.2;
+    }
+}
+
+/* Style du pied de page du chatbot */
+.chatbot-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Largeur complète */
+    background: #fff;
+    /* Fond blanc */
+    padding: 15px 22px 20px;
+    /* Espacement interne */
+}
+
+/* Style du formulaire du chatbot */
+.chatbot-footer .chatbot-form {
+    display: flex;
+    align-items: center;
+    /* Alignement vertical des éléments */
+    background: #fff;
+    /* Fond blanc */
+    border-radius: 32px;
+    /* Bords arrondis */
+    outline: 1px solid #f5f0d7;
+    /* Contour */
+}
+
+/* Style du formulaire lorsqu'il est actif */
+.chatbot-footer .chatbot-form:focus-within {
+    outline: 2px solid #ebbd04;
+    /* Contour jaune foncé */
+}
+
+/* Style de la zone de saisie des messages */
+.chatbot-form .message-input {
+    border: none;
+    /* Pas de bordure */
+    outline: none;
+    /* Pas de contour */
+    height: 47px;
+    /* Hauteur fixe */
+    width: 100%;
+    /* Largeur complète */
+    resize: none;
+    /* Pas de redimensionnement */
+    font-size: 1rem;
+    /* Taille de la police */
+    padding: 14px 0 13px 18px;
+    /* Espacement interne */
+    border-radius: inherit;
+    /* Hérite des bords arrondis */
+}
+
+/* Style des contrôles du formulaire */
+.chatbot-form .chatbot-controls {
+    display: flex;
+    height: 47px;
+    /* Hauteur fixe */
+    gap: 3px;
+    /* Espacement entre les éléments */
+    align-items: center;
+    /* Alignement vertical des éléments */
+    align-self: flex-end;
+    /* Alignement à la fin */
+    padding-right: 6px;
+    /* Espacement interne à droite */
+}
+
+/* Style des boutons de contrôle */
+.chatbot-form .chatbot-controls button {
+    height: 35px;
+    /* Hauteur fixe */
+    width: 35px;
+    /* Largeur fixe */
+    border: none;
+    /* Pas de bordure */
+    font-size: 1.15rem;
+    /* Taille de la police */
+    cursor: pointer;
+    /* Curseur pointeur */
+    color: #faca15;
+    /* Couleur jaune */
+    background: none;
+    /* Pas de fond */
+    border-radius: 50%;
+    /* Forme circulaire */
+    transition: 0.2s ease;
+    /* Transition douce */
+}
+
+/* Style du bouton d'envoi */
+.chatbot-form .chatbot-controls #send-message {
+    color: #fff;
+    /* Couleur blanche */
+    display: none;
+    /* Masqué par défaut */
+    background: #daaf04;
+    /* Fond jaune foncé */
+}
+
+/* Affichage du bouton d'envoi lorsque le message est valide */
+.chatbot-form .message-input:valid~.chatbot-controls #send-message {
+    display: block;
+    /* Affiché */
+}
+
+/* Style du bouton d'envoi au survol */
+.chatbot-form .chatbot-controls #send-message:hover {
+    background: #ffcc00;
+    /* Fond jaune clair */
+}
+
+/* Style des boutons de contrôle au survol */
+.chatbot-form .chatbot-controls button:hover {
+    background: #f5f0d7;
+    /* Fond beige */
+}

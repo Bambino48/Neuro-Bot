@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <!-- Lien vers le fichier CSS pour le style -->
+    <link rel="stylesheet" href="./design/style.css">
+    <!-- Lien vers les icônes Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Lien vers les icônes Material Symbols -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon" />
+</head>
+
+<body>
+    <!-- Conteneur principal -->
+    <div class="container">
+        <!-- En-tête principale -->
+        <div class="chatbot-header">
+            <div class="header-bot">
+                <!-- Icône du cerveau -->
+                <i class='bx bx-brain'></i>
+                <!-- Texte du logo -->
+                <h2 class="logo-text">Neuro-Bot</h2>
+            </div>
+        </div>
+
+        <!-- Corps principal -->
+        <div class="chatbot-body">
+            <!-- Message initial du bot -->
+            <div class="message bot-message thinking">
+                <span class="material-symbols-outlined">
+                    smart_toy
+                </span>
+                <div class="message-text">Salut 👋 <br> Comment puis-je vous aider aujourd'hui ?</div>
+            </div>
+        </div>
+
+        <!-- Pied de page principal -->
+        <div class="chatbot-footer">
+            <!-- Formulaire du chatbot -->
+            <form action="" class="chatbot-form">
+                <!-- Zone de saisie des messages -->
+                <textarea placeholder="Veuillez saisir votre requête..." class="message-input" required></textarea>
+                <!-- Contrôles du formulaire -->
+                <div class="chatbot-controls">
+                    <!--<button type="button" class="material-symbols-outlined">sentiment_satisfied</button>
+                    <button type="button" class="material-symbols-outlined">attach_file</button>-->
+                    <!-- Bouton d'envoi -->
+                    <button type="submit" id="send-message" class="material-symbols-outlined">arrow_upward</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Lien vers le fichier JavaScript principal -->
+    <script src="./script/script.js"></script>
+</body>
+
+</html>
