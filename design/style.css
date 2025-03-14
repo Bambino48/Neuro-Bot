@@ -24,9 +24,10 @@ body {
 /* Style du conteneur principal */
 .container {
     position: relative;
-    width: 420px;
+    width: 600px;
+    height: 600px;
     /* Largeur fixe du conteneur */
-    background: #fff;
+    background: url("../images/vecteezy_hand-holding-glowing-brain-on-dark-background-ai-network-of_8178339.jpg") no-repeat center center/cover;
     /* Couleur de fond blanche */
     overflow: hidden;
     /* Cache le contenu débordant */
@@ -39,6 +40,9 @@ body {
 
 /* Style de l'en-tête du chatbot */
 .chatbot-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     background: #faca15;
@@ -47,6 +51,8 @@ body {
     /* Espacement interne */
     justify-content: space-between;
     /* Espacement entre les éléments */
+    z-index: 1;
+    /* Assurez-vous que l'en-tête est au-dessus des autres éléments */
 }
 
 /* Style du conteneur de l'en-tête du bot */
@@ -86,13 +92,13 @@ body {
 
 /* Style du corps du chatbot */
 .chatbot-body {
-    padding: 25px 22px;
-    /* Espacement interne */
+    padding: 75px 22px 25px 22px;
+    /* Ajouter un padding-top pour compenser la hauteur de l'en-tête */
     display: flex;
     gap: 20px;
     /* Espacement entre les éléments */
-    height: 460px;
-    /* Hauteur fixe */
+    height: calc(100% - 82px);
+    /* Ajuster la hauteur pour éviter le chevauchement avec le pied de page */
     margin-bottom: 82px;
     /* Marge inférieure */
     overflow-y: auto;
@@ -112,6 +118,7 @@ body {
     /* Espacement entre les éléments */
     align-items: center;
     /* Alignement vertical des éléments */
+    padding-top: 50px;
 }
 
 /* Style des icônes dans les messages */

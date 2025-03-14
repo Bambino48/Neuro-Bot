@@ -37,24 +37,37 @@ const nerveDiseases = [
     "neuropathie",
     "myasthénie",
     "sclérose latérale amyotrophique",
+    "maladie d'Alzheimer",
+    "avc",
+    "traumatisme crânien",
 ];
 
 // Liste des salutations
 const greetings = ["bonjour", "salut", "hello", "hi", "bonsoir"];
 
-// Fonction pour vérifier si le texte contient des termes de neurosciences
-const containsNeuroscienceTerms = (text) => {
-    return neuroscienceTerms.some((term) => text.toLowerCase().includes(term));
+// Fonction pour vérifier si le texte contient des termes spécifiques
+const containsTerms = (text, terms) => {
+    return terms.some((term) => text.toLowerCase().includes(term));
 };
 
-// Fonction pour vérifier si le texte contient des maladies des nerfs
-const containsNerveDiseases = (text) => {
-    return nerveDiseases.some((disease) => text.toLowerCase().includes(disease));
+// Fonction pour obtenir la salutation appropriée en fonction de l'heure
+const getTimeBasedGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) return "Bonjour";
+    if (currentHour < 18) return "Bon après-midi";
+    return "Bonsoir";
 };
 
-// Fonction pour vérifier si le texte contient des salutations
-const containsGreeting = (text) => {
-    return greetings.some((greeting) => text.toLowerCase().includes(greeting));
+// Fonction pour formater le texte généré
+const formatGeneratedText = (text) => {
+    // Exemple de formatage : ajouter des sauts de ligne après chaque phrase
+    return text.replace(/([.?!])\s*(?=[A-Z])/g, "$1\n\n");
+};
+
+// Fonction pour remplacer les étoiles par des chiffres séquentiels
+const replaceStarsWithNumbers = (text) => {
+    let counter = 1;
+    return text.replace(/\*/g, () => counter++);
 };
 
 // Fonction pour générer la réponse du bot en utilisant l'API
@@ -62,11 +75,13 @@ const generateBotResponse = async (incomingMessageDiv) => {
     const messageElement = incomingMessageDiv.querySelector(".message-text");
 
     // Vérifie si le message de l'utilisateur contient une salutation
-    if (containsGreeting(userData.message)) {
-        messageElement.innerText =
-            "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
-        incomingMessageDiv.classList.remove("thinking");
-        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+    if (containsTerms(userData.message, greetings)) {
+        setTimeout(() => {
+            const greeting = getTimeBasedGreeting();
+            messageElement.innerText = `${greeting} ! Comment puis-je vous aider aujourd'hui ?`;
+            incomingMessageDiv.classList.remove("thinking");
+            chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+        }, 1000); // Délai de 1 seconde avant de répondre
         return;
     }
 
@@ -89,10 +104,22 @@ const generateBotResponse = async (incomingMessageDiv) => {
             .replace(/\*\*(.*?)\*\*/g, "$1") // Supprime les éventuels caractères gras
             .trim();
 
+        // Remplacer les étoiles par des chiffres séquentiels
+        apiResponseText = replaceStarsWithNumbers(apiResponseText);
+
+        // Limiter la longueur du texte généré
+        const maxLength = 1000; // Augmenter la limite de caractères
+        if (apiResponseText.length > maxLength) {
+            apiResponseText = apiResponseText.substring(0, maxLength) + "...";
+        }
+
+        // Formater le texte généré
+        apiResponseText = formatGeneratedText(apiResponseText);
+
         // Vérifie si la réponse contient des termes de neurosciences ou des maladies des nerfs
         if (
-            !containsNeuroscienceTerms(apiResponseText) &&
-            !containsNerveDiseases(apiResponseText)
+            !containsTerms(apiResponseText, neuroscienceTerms) &&
+            !containsTerms(apiResponseText, nerveDiseases)
         ) {
             apiResponseText =
                 "Je suis désolé, je ne peux répondre qu'aux questions liées aux neurosciences et aux maladies des nerfs.";
@@ -101,6 +128,8 @@ const generateBotResponse = async (incomingMessageDiv) => {
         messageElement.innerText = apiResponseText;
     } catch (error) {
         console.log(error);
+        messageElement.innerText =
+            "Une erreur s'est produite. Veuillez réessayer plus tard.";
     } finally {
         incomingMessageDiv.classList.remove("thinking");
         chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
@@ -116,10 +145,11 @@ const handleOutgoingMessage = (e) => {
     userData.message = messageInput.value.trim();
     messageInput.value = "";
 
+    if (!userData.message) return;
+
     // Créer et afficher le message de l'utilisateur
-    const messageContent = `<div class="message-text"></div>`;
     const outgoingMessageDiv = createMessageElement(
-        messageContent,
+        `<div class="message-text"></div>`,
         "user-message"
     );
     outgoingMessageDiv.querySelector(".message-text").textContent =
@@ -129,16 +159,15 @@ const handleOutgoingMessage = (e) => {
 
     // Simuler la réponse du bot avec un indicateur de réflexion après un délai
     setTimeout(() => {
-        const messageContent = `<span class="material-symbols-outlined">smart_toy</span>
+        const incomingMessageDiv = createMessageElement(
+            `<span class="material-symbols-outlined">smart_toy</span>
             <div class="message-text">
                 <div class="thinking-indicator">
                     <div class="dot"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
                 </div>
-            </div>`;
-        const incomingMessageDiv = createMessageElement(
-            messageContent,
+            </div>`,
             "bot-message",
             "thinking"
         );
@@ -150,8 +179,7 @@ const handleOutgoingMessage = (e) => {
 
 // Gérer l'appui sur la touche Entrée pour envoyer des messages
 messageInput.addEventListener("keydown", (e) => {
-    const userMessage = e.target.value.trim();
-    if (e.key === "Enter" && userMessage) {
+    if (e.key === "Enter" && messageInput.value.trim()) {
         handleOutgoingMessage(e);
     }
 });
